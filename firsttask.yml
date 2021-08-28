@@ -1,0 +1,5 @@
+- name: task 1
+  hosts: all
+  tasks:
+          - name: 1
+            command: "touch ansible_was_here"
