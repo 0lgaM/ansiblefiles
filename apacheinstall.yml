@@ -1,0 +1,43 @@
+- name: Apache installation
+  hosts: webservers
+  tasks:
+          - name: add timezone symlink
+            ansible.builtin.file:
+                    src: /usr/share/zoneinfo/Europe/Moscow
+                    dest: /etc/localtime
+                    state: link
+            # ln -snf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+           
+          - name: set timezone
+            ansible.builtin.lineinfile:
+                   path: /etc/timezone  
+                   line: Europe/Moscow
+                   create: yes
+
+            #echo Europe/Moscow >> /etc/timezone
+
+          - name: apache2 installation
+            ansible.builtin.package:
+                    name: apache2
+                    state: present
+
+          - name: install dependencies
+            ansible.builtin.package:
+                    name: software-properties-common
+                    state: present
+
+          - name: add repository for php8
+            ansible.builtin.apt_repository:
+                    repo: ppa:ondrej/php
+
+          - name: installing php8
+            ansible.builtin.package:
+                    name: php8.0
+
+          - name: installing apache library
+            package:
+                    name: libapache2-mod-php8.0
+
+          - name: installing mysqli
+            package:
+                    name: php8.0-mysql
