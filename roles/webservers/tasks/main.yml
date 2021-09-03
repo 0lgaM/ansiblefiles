@@ -1,0 +1,75 @@
+---
+- name: add timezone symlink
+  file:
+    src: /usr/share/zoneinfo/Europe/Moscow
+    dest: /etc/localtime
+    state: link
+
+- name: set timezone
+  lineinfile:
+    path: /etc/timezone
+    line: Europe/Moscow
+    create: yes
+
+- name: apache2 installation
+  package:
+    name: apache2
+    state: present
+
+- name: install dependencies
+  package:
+    name: software-properties-common
+    state: present
+
+- name: add repository for php8
+  apt_repository:
+    repo: ppa:ondrej/php
+
+- name: installing php8
+  ansible.builtin.package:
+    name: php8.0
+
+- name: installing mysqli
+  package:
+    name: php8.0-mysql
+
+- name: defining index file
+  lineinfile:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    insertafter: 'DocumentRoot /var/www/html'
+    line: '     DirectoryIndex index.php'
+
+- name: downloading wordpress
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /var/www/wordpress.tar.gz
+
+- name: unzipping archive
+  unarchive:
+    src: /var/www/wordpress.tar.gz
+    dest: /var/www/
+    remote_src: yes
+
+- name: delete directory
+  file:
+    path: /var/www/html
+    state: absent
+
+- name: trying to rename wordpress
+  copy:
+    src: /var/www/wordpress/
+    dest: /var/www/html
+    remote_src: yes
+    directory_mode: yes
+
+- name: deleting archive
+  file:
+    path: /var/www/wordpress.tar.gz
+    state: absent
+
+- name: deleting old dir
+  file:
+    path: /var/www/wordpress
+    state: absent
+
+
