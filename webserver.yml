@@ -1,6 +1,7 @@
 ---
-- name: Apache installation
+
+- name: Webserver through Docker installation
   hosts: webservers
   roles:
-    - webservers 
+    - web-docker 
 

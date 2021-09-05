@@ -1,0 +1,13 @@
+[Unit]
+Description=Docker container start
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=docker-compose -f /etc/docker/docker-compose.yml up 
+ExecStop=docker-compose -f /etc/docker/docker-compose.yml stop
+
+
+[Install]
+WantedBy=multi-user.target

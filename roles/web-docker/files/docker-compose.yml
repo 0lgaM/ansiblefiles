@@ -1,0 +1,26 @@
+version: "3"
+services:
+        web_server:
+                image: toasterlint/php-apache-mysql:8.0-nowarn
+                ports:
+                        - 80:80
+                volumes:
+                        - /var/www/wordpress:/var/www/html
+                depends_on:
+                        - database
+        database:
+                image: mysql:latest
+                ports: 
+                        - 3306:3306
+                volumes:
+                        - /var/www/database:/var/lib/mysql
+                environment:
+                        MYSQL_ROOT_PASSWORD: "root"
+                        MYSQL_DATABASE: "base_1"
+                        MYSQL_USER: "user_1"
+                        MYSQL_PASSWORD: "passwd" 
+        
+
+volumes:
+        sitefiles:
+        database:

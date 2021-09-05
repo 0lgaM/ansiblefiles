@@ -1,0 +1,65 @@
+---
+- name: add timezone symlink
+  file:
+    src: /usr/share/zoneinfo/Europe/Moscow
+    dest: /etc/localtime
+    state: link
+
+- name: set timezone
+  lineinfile:
+    path: /etc/timezone
+    line: Europe/Moscow
+    create: yes
+
+- name: downloading wordpress
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /var/www/wordpress.tar.gz
+
+- name: unzipping archive
+  unarchive:
+    src: /var/www/wordpress.tar.gz
+    dest: /var/www/
+    remote_src: yes
+
+- name: copying correct wp-config file
+  copy:
+    src: /home/burnedwitch/ansiblefiles/roles/web-docker/files/wp-config.php
+    dest: /var/www/wordpress/wp-config.php
+
+
+- name: installing docker
+  package:
+    name: docker
+    state: present
+
+- name: installing docker-compose
+  package:
+    name: docker-compose
+    state: present
+
+- name: making db directory
+  file:
+    path: /var/www/database/
+    state: directory
+
+- name: copying compose file
+  copy:
+    src: /home/burnedwitch/ansiblefiles/roles/web-docker/files/docker-compose.yml
+    dest: /etc/docker/docker-compose.yml
+
+- name: copying unit file
+  copy:
+    src: /home/burnedwitch/ansiblefiles/roles/web-docker/files/unitfile.service
+    dest: /etc/systemd/system/docker-container.service
+    mode: '0644'
+
+- name: enable service
+  systemd:
+    name: docker-container
+    enabled: yes
+
+- name: starting service
+  systemd:
+    name: docker-container
+    state: started
