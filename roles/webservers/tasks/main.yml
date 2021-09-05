@@ -37,7 +37,7 @@
   lineinfile:
     path: /etc/apache2/sites-enabled/000-default.conf
     insertafter: 'DocumentRoot /var/www/html'
-    line: '     DirectoryIndex index.php'
+    line: '	  DirectoryIndex index.php'
 
 - name: downloading wordpress
   get_url:
@@ -62,14 +62,22 @@
     remote_src: yes
     directory_mode: yes
 
-- name: deleting archive
-  file:
-    path: /var/www/wordpress.tar.gz
-    state: absent
+    #- name: deleting archive
+    #  file:
+    #    path: /var/www/wordpress.tar.gz
+    #    state: absent
 
-- name: deleting old dir
-  file:
-    path: /var/www/wordpress
-    state: absent
+    #- name: deleting old dir
+    #  file:
+    #    path: /var/www/wordpress
+    #    state: absent
 
+- name: installing docker
+  package:
+    name: docker
+    state: present
 
+- name: installing docker-compose
+  package:
+    name: docker-compose
+    state: present
