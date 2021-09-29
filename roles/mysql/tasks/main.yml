@@ -8,4 +8,14 @@
     name: mysql
     enabled: yes
 
-- name: 
+- name: mysql db adding
+  community.mysql.mysql_db:
+    name: {{ base_name }}
+    state: present
+
+- name: mysql user adding
+  community.mysql.mysql_user:
+    name: {{ user_name }}
+    password: {{ passwd }}
+    priv: '{{ base_name }}.*:ALL'
+    state: present
