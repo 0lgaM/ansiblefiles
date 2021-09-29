@@ -1,0 +1,11 @@
+- name: mysql server default installation
+  package: 
+    name: mysql-server-8.0
+    state: present
+
+- name: adding to autoreboot
+  systemd:
+    name: mysql
+    enabled: yes
+
+- name: 

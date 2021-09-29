@@ -1,0 +1,14 @@
+---
+
+- name: Webserver through Docker installation
+  hosts: webservers
+  roles:
+    - web-docker
+     
+
+- name: Zabbix installation
+  hosts: zabbixservers
+  roles:
+    - web-apache
+    - mysql
+    - zabbix
