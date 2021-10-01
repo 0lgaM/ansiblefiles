@@ -8,14 +8,28 @@
     name: mysql
     enabled: yes
 
+- name: python installing for ansible community module
+  package:
+    name: python3
+    state: present
+
+- name: pip installing
+  package:
+    name: pip
+    state: present
+
+- name: pymysql  installing
+  pip:
+    name: PyMySQL
+
 - name: mysql db adding
   community.mysql.mysql_db:
-    name: {{ base_name }}
+    name: "{{ base_name }}"
     state: present
 
 - name: mysql user adding
   community.mysql.mysql_user:
-    name: {{ user_name }}
-    password: {{ passwd }}
+    name: "{{ user_name }}"
+    password: "{{ user_passwd }}"
     priv: '{{ base_name }}.*:ALL'
     state: present

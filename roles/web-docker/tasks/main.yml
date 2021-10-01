@@ -11,6 +11,12 @@
     line: Europe/Moscow
     create: yes
 
+- name:  creating /var/www directory
+  file:
+    path: /var/www
+    state: directory
+    mode: '0755'
+
 - name: downloading wordpress
   get_url:
     url: https://wordpress.org/latest.tar.gz
@@ -27,21 +33,36 @@
     src: /home/burnedwitch/ansiblefiles/roles/web-docker/files/wp-config.php
     dest: /var/www/wordpress/wp-config.php
 
+- name: installing containred
+  apt:
+    deb: https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/containerd.io_1.4.9-1_amd64.deb
 
-- name: installing docker
-  package:
+
+- name: installing docker .deb
+  apt:
+    deb: https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce_20.10.8~3-0~ubuntu-focal_amd64.deb
+
+- name: downloading docker compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 0755
+
+- name: starting docker 
+  service:
     name: docker
-    state: present
-
-- name: installing docker-compose
-  package:
-    name: docker-compose
-    state: present
+    state: started
 
 - name: making db directory
   file:
     path: /var/www/database/
     state: directory
+
+- name: and docker directory
+  file:
+    path: /etc/docker
+    state: directory
+
 
 - name: copying compose file
   copy:

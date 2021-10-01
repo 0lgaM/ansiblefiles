@@ -12,3 +12,7 @@
     - web-apache
     - mysql
     - zabbix
+  vars:
+    base_name: zabbix
+    user_name: zabbix
+    user_passwd: Zabb1xPassw0rd
