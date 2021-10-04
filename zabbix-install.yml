@@ -3,7 +3,6 @@
 - name: Zabbix installation
   hosts: zabbixservers
   roles:
-    - web-apache
     - mysql
     - zabbix
   vars:

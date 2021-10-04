@@ -1,6 +1,25 @@
 ---
 
-- name: package installation
+- name: add timezone symlink
+  file:
+    src: /usr/share/zoneinfo/Europe/Moscow
+    dest: /etc/localtime
+    state: link
+
+- name: set timezone
+  lineinfile:
+    path: /etc/timezone
+    line: Europe/Moscow
+    create: yes
+
+
+- name: apache2 installation
+  package:
+    name: apache2
+    state: present
+
+
+- name: zabbix  package installation
   apt:
     deb: https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb
 
@@ -8,24 +27,24 @@
   apt:
     update_cache: yes
 
-- name: zabbix-server installation
+- name: zabbix-server installation...
   package:
     name: zabbix-server-mysql
     state: present
 
-- name: ... and zabbix frontend
+- name: ... and zabbix frontend...
   package:
     name: zabbix-frontend-php
 
-- name: ... and zabbix agent
+- name: ... and zabbix agent...
   package:
     name: zabbix-agent
 
-- name: ... and apache?
+- name: ... and zabbix-apache!
   package:
     name: zabbix-apache-conf
 
-- name: and installing php7.4 for zabbix (not supported 8.0)
+- name: ... and installing php7.4 for zabbix (not supported 8.0)
   package:
     name: php7.4
 
@@ -50,7 +69,7 @@
     state: import
     target: /usr/share/doc/zabbix-server-mysql/create.sql
     force: yes
-  register: import_mysql
+#  register: import_mysql
 
 #- debug:
 #    msg: "{{ import_mysql }}"
