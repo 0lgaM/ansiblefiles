@@ -1,11 +1,5 @@
 ---
 
-- name: Webserver through Docker installation
-  hosts: webservers
-  roles:
-    - web-docker
-     
-
 - name: Zabbix installation
   hosts: zabbixservers
   roles:
@@ -16,3 +10,4 @@
     base_name: zabbix
     user_name: zabbix
     user_passwd: Zabb1xPassw0rd
+

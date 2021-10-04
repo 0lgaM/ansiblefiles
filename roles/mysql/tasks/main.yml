@@ -22,10 +22,24 @@
   pip:
     name: PyMySQL
 
+    #- name: trying to change root passwd
+    #  community.mysql.mysql_user:
+    #    name: root
+    #    password: A11A11
+    #    priv: '*.*:ALL'
+
+- name: copying .my.cnf
+  copy:
+    src: /home/burnedwitch/ansiblefiles/roles/mysql/files/.my.cnf
+    dest: /root/.my.cnf
+
 - name: mysql db adding
   community.mysql.mysql_db:
+    login_user: root
+    login_password: A11A11
     name: "{{ base_name }}"
     state: present
+
 
 - name: mysql user adding
   community.mysql.mysql_user:
@@ -33,3 +47,5 @@
     password: "{{ user_passwd }}"
     priv: '{{ base_name }}.*:ALL'
     state: present
+
+

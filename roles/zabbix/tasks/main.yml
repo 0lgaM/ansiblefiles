@@ -1,12 +1,7 @@
 ---
-#- name: Zabbix repo downloading
-#  get_url:
-#    url: https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb
-#    dest: /home/ubuntu/
 
-- name: packge installation
+- name: package installation
   apt:
-#    deb: /home/ubuntu/zabbix-release_5.0-1+focal_all.deb
     deb: https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb
 
 - name: apt upgrade =)
@@ -21,4 +16,91 @@
 - name: ... and zabbix frontend
   package:
     name: zabbix-frontend-php
+
+- name: ... and zabbix agent
+  package:
+    name: zabbix-agent
+
+- name: ... and apache?
+  package:
+    name: zabbix-apache-conf
+
+- name: and installing php7.4 for zabbix (not supported 8.0)
+  package:
+    name: php7.4
+
+- name: installing unzip
+  package:
+    name: unzip
+
+# uncomment this for the first time and comment for next
+#- name: unzipping mysql
+#  command: gunzip -k  /usr/share/doc/zabbix-server-mysql/create.sql.gz
+
+- name: adding charset to database
+  community.mysql.mysql_query:
+    login_user: root
+    login_password: A11A11
+    query: ALTER DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin;
+
+
+- name: uploading sql file in database
+  community.mysql.mysql_db:
+    name: zabbix
+    state: import
+    target: /usr/share/doc/zabbix-server-mysql/create.sql
+    force: yes
+  register: import_mysql
+
+#- debug:
+#    msg: "{{ import_mysql }}"
+
+- name: uploading correct zabbix mysql conf
+  copy:
+    src: /home/burnedwitch/ansiblefiles/roles/zabbix/files/zabbix_server.conf
+    dest: /etc/zabbix/zabbix_server.conf
+
+- name: copying zabbix apache config
+  copy:
+     src: /etc/zabbix/apache.conf
+     dest: /etc/apache2/sites-enabled/
+     remote_src: yes
+
+- name:  editing config
+  replace:
+     path: /etc/apache2/sites-enabled/apache.conf
+     regexp: '\# php_value'
+     replace: 'php_value'
+
+- name: ... and again
+  replace:
+     path: /etc/apache2/sites-enabled/apache.conf
+     regexp: 'Riga'
+     replace: 'Moscow'
+
+
+- name: restarting services
+  service:
+    name: zabbix-server
+    state: restarted
+
+- name: restarting services
+  service:
+    name: zabbix-agent
+    state: restarted
+
+- name: restarting services
+  service:
+    name: apache2
+    state: restarted
+
+- name: adding to autoboot
+  systemd:
+    name: zabbix-server
+    enabled: yes
+
+- name: adding to autoboot number 2
+  systemd:
+    name: zabbix-agent
+    enabled: yes
 
