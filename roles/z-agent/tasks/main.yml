@@ -1,0 +1,15 @@
+---
+
+- name: zabbix agent installation
+  package:
+    name: zabbix-agent
+
+- name: adding agent to autoboot
+  systemd:
+    name: zabbix-agent
+    enabled: yes
+
+- name: copying config file
+  copy:
+    src: /home/burnedwitch/ansiblefiles/roles/z-agent/files/zabbix-agent.conf
+    dest: /etc/zabbix/zabbix_agentd.conf.d/
