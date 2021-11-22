@@ -1,0 +1,53 @@
+---
+- name: apt update
+  apt:
+    update_cache: yes
+
+- name: apt upgrade
+  apt:
+    upgrade: yes
+
+- name: downloading prometheus binaries
+  get_url:
+    url: https://github.com/prometheus/prometheus/releases/download/v2.32.0-beta.0/prometheus-2.32.0-beta.0.linux-amd64.tar.gz
+    dest: /root/prometheus.tar.gz
+
+- name: unzipping archive
+  unarchive:
+    src: /root/prometheus.tar.gz
+    dest: /root
+    remote_src: yes
+
+- name: making correct directory
+  file:
+    path: /root/prometheus
+    state: directory
+
+- name: copying files
+  copy:
+    src: /root/prometheus-2.32.0-beta.0.linux-amd64/
+    dest: /etc/prometheus
+    remote_src: yes
+    directory_mode: yes
+
+- name: copying unit file
+  copy:
+    src: ./roles/prometheus/files/unitfile.service
+    dest: /etc/systemd/system/prometheus.service
+    mode: '0644'
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: enable service
+  systemd:
+    name: prometheus
+    enabled: yes
+
+- name: starting service
+  systemd:
+    name: prometheus
+    state: started
+    
+
