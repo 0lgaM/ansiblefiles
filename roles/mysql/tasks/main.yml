@@ -30,7 +30,7 @@
 
 - name: copying .my.cnf
   copy:
-    src: /home/burnedwitch/ansiblefiles/roles/mysql/files/.my.cnf
+    src: ./roles/mysql/files/.my.cnf
     dest: /root/.my.cnf
 
 - name: mysql db adding

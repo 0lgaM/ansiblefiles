@@ -11,5 +11,5 @@
 
 - name: copying config file
   copy:
-    src: /home/burnedwitch/ansiblefiles/roles/z-agent/files/zabbix-agent.conf
+    src: ./roles/z-agent/files/zabbix-agent.conf
     dest: /etc/zabbix/zabbix_agentd.conf.d/

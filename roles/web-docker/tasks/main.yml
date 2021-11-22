@@ -30,7 +30,7 @@
 
 - name: copying correct wp-config file
   copy:
-    src: /home/burnedwitch/ansiblefiles/roles/web-docker/files/wp-config.php
+    src: ./roles/web-docker/files/wp-config.php
     dest: /var/www/wordpress/wp-config.php
 
 - name: installing containred
@@ -66,12 +66,12 @@
 
 - name: copying compose file
   copy:
-    src: /home/burnedwitch/ansiblefiles/roles/web-docker/files/docker-compose.yml
+    src: ./roles/web-docker/files/docker-compose.yml
     dest: /etc/docker/docker-compose.yml
 
 - name: copying unit file
   copy:
-    src: /home/burnedwitch/ansiblefiles/roles/web-docker/files/unitfile.service
+    src: ./roles/web-docker/files/unitfile.service
     dest: /etc/systemd/system/docker-container.service
     mode: '0644'
 

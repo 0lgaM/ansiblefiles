@@ -34,7 +34,7 @@
 
 - name: copying correct wp-config file
   copy:
-    src: /home/burnedwitch/ansiblefiles/roles/wphost/files/wp-config.php
+    src: ./roles/wphost/files/wp-config.php
     dest: /var/www/html/wp-config.php
 
 
