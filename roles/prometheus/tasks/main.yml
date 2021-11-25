@@ -30,6 +30,11 @@
     remote_src: yes
     directory_mode: yes
 
+- name: copying config file
+  copy:
+    src: ./roles/prometheus/files/prometheus.yml
+    dest: /etc/prometheus/prometheus.yml
+
 - name: copying unit file
   copy:
     src: ./roles/prometheus/files/unitfile.service
