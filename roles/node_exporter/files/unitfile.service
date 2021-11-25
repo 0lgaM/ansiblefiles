@@ -1,0 +1,14 @@
+[Unit]
+Description=Prometheus service start
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/etc/node_exporter/node_exporter 
+
+
+
+[Install]
+WantedBy=multi-user.target
+

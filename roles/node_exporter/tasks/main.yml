@@ -1,0 +1,44 @@
+---
+- name: downloading node exporter
+  get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v1.3.0/node_exporter-1.3.0.linux-amd64.tar.gz
+    dest: /root/node_exporter.tar.gz
+
+- name: unzipping archive
+  unarchive:
+    src: /root/node_exporter.tar.gz
+    dest: /root
+    remote_src: yes
+
+- name: making correct directory
+  file:
+    path: /etc/node_exporter
+    state: directory
+
+- name: copying files
+  copy:
+    src: /root/node_exporter-1.3.0.linux-amd64/
+    dest: /etc/node_exporter
+    remote_src: yes
+    directory_mode: yes
+
+- name: copying unit file
+  copy:
+    src: ./roles/node_exporter/files/unitfile.service
+    dest: /etc/systemd/system/node_exporter.service
+    mode: '0644'
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: enable service
+  systemd:
+    name: node_exporter
+    enabled: yes
+
+- name: starting service
+  systemd:
+    name: node_exporter
+    state: started
+

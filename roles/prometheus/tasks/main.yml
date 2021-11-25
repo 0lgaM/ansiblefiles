@@ -20,7 +20,7 @@
 
 - name: making correct directory
   file:
-    path: /root/prometheus
+    path: /etc/prometheus
     state: directory
 
 - name: copying files

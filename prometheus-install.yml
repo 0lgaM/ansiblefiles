@@ -3,4 +3,5 @@
   hosts: prometheus
   roles:
     - prometheus
+    - node_exporter
 
