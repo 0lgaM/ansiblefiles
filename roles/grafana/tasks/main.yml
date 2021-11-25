@@ -1,0 +1,19 @@
+---
+- name: grafana .deb downloading
+  get_url:
+    url: https://dl.grafana.com/enterprise/release/grafana-enterprise_8.2.5_amd64.deb
+    dest: /root/grafana.deb
+
+- name: grafana installation
+  apt:
+    deb: /root/grafana.deb
+
+- name: enable service
+  systemd:
+    name: grafana-server
+    enabled: yes
+
+- name: starting service
+  systemd:
+    name: grafana-server
+    state: started

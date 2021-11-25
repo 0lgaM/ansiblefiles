@@ -5,4 +5,5 @@
   roles:
     - web-docker
     - z-agent 
+    - node_exporter
 
