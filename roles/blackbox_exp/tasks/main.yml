@@ -1,0 +1,49 @@
+---
+- name: downloading node exporter
+  get_url:
+    url: https://github.com/prometheus/blackbox_exporter/releases/download/v0.19.0/blackbox_exporter-0.19.0.linux-amd64.tar.gz
+    dest: /root/blackbox_exporter.tar.gz
+
+- name: unzipping archive
+  unarchive:
+    src: /root/blackbox_exporter.tar.gz
+    dest: /root
+    remote_src: yes
+
+- name: making correct directory
+  file:
+    path: /etc/blackbox_exporter
+    state: directory
+
+- name: copying files
+  copy:
+    src: /root/blackbox_exporter-0.19.0.linux-amd64/
+    dest: /etc/blackbox_exporter
+    remote_src: yes
+    directory_mode: yes
+
+- name: copying correct config file
+  copy:
+    src: ./roles/blackbox_exp/files/blackbox.yml
+    dest: /etc/blackbox_exporter/blackbox.yml
+
+
+- name: copying unit file
+  copy:
+    src: ./roles/blackbox_exp/files/unitfile.service
+    dest: /etc/systemd/system/blackbox_exporter.service
+    mode: '0644'
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: enable service
+  systemd:
+    name: blackbox_exporter
+    enabled: yes
+
+- name: starting service
+  systemd:
+    name: blackbox_exporter
+    state: started

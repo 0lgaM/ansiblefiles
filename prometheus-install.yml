@@ -2,7 +2,8 @@
 - name: Prometheus server installation
   hosts: prometheus
   roles:
-    - prometheus
-    - node_exporter
-    - grafana
+    # - prometheus
+    #- node_exporter
+    # - grafana
+    - blackbox_exp
 
