@@ -47,9 +47,12 @@ scrape_configs:
         - https://prometheus.io
         - https://yandex.ru
     relabel_configs:
+        # parameter 'target' for blackbox is assigned value in __address__ ('target' from static_configs)
       - source_labels: [__address__]
         target_label: __param_target
+        # label 'instance' is assigned value from parameter 'target' — just to make it more clear
       - source_labels: [__param_target]
         target_label: instance
+        # 'target' of static_configs become blackbox address
       - target_label: __address__
         replacement: localhost:9115
