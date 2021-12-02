@@ -1,6 +1,7 @@
 Zabbix installation tasks still have some issues:
 
-1. On the mysql database creation step (~/roles/mysql/tasks/main.yml) ansible needs to use db password. Default mysql installation includes root/nopassword credentials, so you need to change password manually, in my case i'm changing to 'A11A11'. You need to change password BEFORE "mysql db adding" step. 
+1. On the mysql database creation step (~/roles/mysql/tasks/main.yml) ansible needs to use db password. Default mysql installation includes root/nopassword credentials, so you need to change password manually, in my case i'm changing to 'A11A11'. You need to change password BEFORE "mysql db adding" step.
+Note: added ansible module 'pause', but without any testing, don't know if it works =D
 
 2. In zabbix installation tasks (~/roles/zabbix/tasks/main.yml) you need to unzip .gz archive (because importing .sql.gz file in db didn't work). Ansible module 'unarchive' can't work with this format so it's performing with gunzip command. For the first time you need to uncomment this task and to comment it next time.
 
