@@ -45,7 +45,12 @@ scrape_configs:
     static_configs:
       - targets:
         - https://prometheus.io
+        labels:
+          site_name: prometheus.io
+      - targets:          
         - https://yandex.ru
+        labels:
+          site_name: yandex.ru
     relabel_configs:
         # parameter 'target' for blackbox is assigned value in __address__ ('target' from static_configs)
       - source_labels: [__address__]
