@@ -41,6 +41,11 @@
     dest: /etc/systemd/system/prometheus.service
     mode: '0644'
 
+- name: copying alerting rules file
+  copy:
+    src: ./roles/prometheus/files/alerting_rules.yml
+    dest: /etc/prometheus/alerting_rules.yml
+
 - name: systemctl daemon-reload
   systemd:
     daemon_reload: yes

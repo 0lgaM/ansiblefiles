@@ -14,7 +14,7 @@ alerting:
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  # - "first_rules.yml"
+  - "alerting_rules.yml"
   # - "second_rules.yml"
 
 
@@ -43,14 +43,19 @@ scrape_configs:
     params:
       module: [http_2xx]  # Look for a HTTP 200 response.
     static_configs:
+
       - targets:
-        - https://prometheus.io
+        - https://www.blizzard.com/en-us/
+        - https://playheartstone.com/en-us
+        - https://worldofwarcraft.com/ru-ru/
         labels:
-          site_name: prometheus.io
+          site_name: blizzard
+
       - targets:          
         - https://yandex.ru
         labels:
           site_name: yandex.ru
+
     relabel_configs:
         # parameter 'target' for blackbox is assigned value in __address__ ('target' from static_configs)
       - source_labels: [__address__]
