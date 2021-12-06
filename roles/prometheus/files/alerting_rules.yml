@@ -2,7 +2,7 @@ groups:
   - name: test slow (no) responce
     rules:
     - alert: Slow responce!
-      expr: scrape_duraion_seconds > 0.35
+      expr: scrape_duration_seconds > 0.35
       # for:
       # labels:
       # annotations:   
