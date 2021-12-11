@@ -46,4 +46,4 @@
 - name: starting service
   systemd:
     name: blackbox_exporter
-    state: started
+    state: restarted
