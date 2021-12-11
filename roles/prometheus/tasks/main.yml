@@ -58,6 +58,6 @@
 - name: starting service
   systemd:
     name: prometheus
-    state: started
+    state: restarted
     
 
