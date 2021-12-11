@@ -40,6 +40,6 @@
 - name: starting service
   systemd:
     name: node_exporter
-    state: started
+    state: restarted
 
 
