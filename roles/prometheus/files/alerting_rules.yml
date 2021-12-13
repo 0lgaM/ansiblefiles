@@ -1,8 +1,20 @@
 groups:
-  - name: test slow (no) responce
-    rules:
-    - alert: Slow responce!
-      expr: scrape_duration_seconds > 0.35
-      # for:
-      # labels:
-      # annotations:   
+- name: test slow responce 
+  rules:
+  - alert: "Heartstone: slow responce!"
+    expr: scrape_duration_seconds{instance="https://playheartstone.com/en-us"} > 1 
+    # for:
+    # labels:
+    # annotations:   
+
+  - alert: "WoW: slow responce!"
+    expr: scrape_duration_seconds{instance="https://worldofwarcraft.com/ru-ru/"} > 0.5
+    # for:
+    # labels:
+    # annotations:
+ 
+  - alert: "Blizzard: slow responce!"
+    expr: scrape_duration_seconds{instance="https://www.blizzard.com/en-us/"} > 0.5
+    # for:
+    # labels:
+    # annotations:
