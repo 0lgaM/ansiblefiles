@@ -33,9 +33,22 @@
     src: ./roles/web-docker/files/wp-config.php
     dest: /var/www/wordpress/wp-config.php
 
-- name: installing containred
+- name: apt update
+  apt:
+    update_cache: yes
+
+
+- name: apt upgrade
+  apt:
+    upgrade: yes
+
+- name: installing containerd
   apt:
     deb: https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/containerd.io_1.4.9-1_amd64.deb
+
+- name: installing docker-cli .deb
+  apt:
+    deb: https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce-cli_20.10.8~3-0~ubuntu-focal_amd64.deb
 
 
 - name: installing docker .deb

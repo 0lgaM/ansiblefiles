@@ -1,11 +1,13 @@
 ---
-- name: apt update
-  apt:
-    update_cache: yes
+# uncomment this for the first-time use
+#- name: apt update
+#  apt:
+#    update_cache: yes
 
-- name: apt upgrade
-  apt:
-    upgrade: yes
+# this too
+#- name: apt upgrade
+#  apt:
+#    upgrade: yes
 
 - name: downloading prometheus binaries
   get_url:
