@@ -45,4 +45,8 @@
     insertafter: 'DocumentRoot /var/www/html'
     line: '        DirectoryIndex index.php'
 
-
+- name: mysqli enabling
+  lineinfile:
+    path: /etc/php/8.0/apache2/php.ini
+    regexp: ";extension=mysqli"
+    line: "extension=mysqli"

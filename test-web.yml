@@ -1,0 +1,12 @@
+---
+- name: webserver installation
+  hosts: test
+  roles:
+    - web-apache
+    - mysql
+    - wphost
+
+  vars:
+    base_name: "base_1"
+    user_name: "user_1"
+    user_passwd: "passwd"

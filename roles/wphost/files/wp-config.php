@@ -29,7 +29,7 @@ define( 'DB_USER', 'user_1' );
 define( 'DB_PASSWORD', 'passwd' );
 
 /** Имя сервера MySQL */
-define( 'DB_HOST', 'docker_database_1' );
+define( 'DB_HOST', 'localhost' );
 
 /** Кодировка базы данных для создания таблиц. */
 define( 'DB_CHARSET', 'utf8mb4' );

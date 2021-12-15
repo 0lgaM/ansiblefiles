@@ -30,7 +30,7 @@
 
 - name: waiting time
   pause:
-    prompt: "Here we're waiting for you to set mysql root password to A11A11"
+          prompt: "Here we're waiting for you to set mysql root password: ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'A11A11';"
 
 
 - name: copying .my.cnf

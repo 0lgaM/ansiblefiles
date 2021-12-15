@@ -24,8 +24,8 @@
 
 - name: deleting archive
   file:
-  path: /var/www/wordpress.tar.gz
-  state: absent
+    path: /var/www/wordpress.tar.gz
+    state: absent
 
 - name: deleting old dir
   file:
