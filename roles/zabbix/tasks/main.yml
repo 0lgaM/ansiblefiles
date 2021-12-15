@@ -23,9 +23,6 @@
   apt:
     deb: https://repo.zabbix.com/zabbix/5.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.0-1+focal_all.deb
 
-#- name: apt upgrade =)
-#  apt:
-#    update_cache: yes
 
 - name: zabbix-server installation...
   package:
@@ -69,10 +66,6 @@
     state: import
     target: /usr/share/doc/zabbix-server-mysql/create.sql
     force: yes
-#  register: import_mysql
-
-#- debug:
-#    msg: "{{ import_mysql }}"
 
 - name: uploading correct zabbix mysql conf
   copy:

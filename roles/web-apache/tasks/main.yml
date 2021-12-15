@@ -50,3 +50,9 @@
     path: /etc/php/8.0/apache2/php.ini
     regexp: ";extension=mysqli"
     line: "extension=mysqli"
+
+- name: service restart
+  systemd:
+    name: apache2
+    state: restarted
+

@@ -13,3 +13,9 @@
   copy:
     src: ./roles/z-agent/files/zabbix-agent.conf
     dest: /etc/zabbix/zabbix_agentd.conf.d/
+    
+- name: restarting service
+  systemd:
+    name: zabbix_agent
+    state: restarted
+

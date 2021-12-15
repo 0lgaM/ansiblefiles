@@ -16,4 +16,4 @@
 - name: starting service
   systemd:
     name: grafana-server
-    state: started
+    state: restarted

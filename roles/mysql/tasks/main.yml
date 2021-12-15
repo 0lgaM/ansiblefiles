@@ -22,11 +22,6 @@
   pip:
     name: PyMySQL
 
-    #- name: trying to change root passwd
-    #  community.mysql.mysql_user:
-    #    name: root
-    #    password: A11A11
-    #    priv: '*.*:ALL'
 
 - name: waiting time
   pause:

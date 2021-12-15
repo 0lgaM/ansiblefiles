@@ -33,14 +33,6 @@
     src: ./roles/web-docker/files/wp-config.php
     dest: /var/www/wordpress/wp-config.php
 
-- name: apt update
-  apt:
-    update_cache: yes
-
-
-- name: apt upgrade
-  apt:
-    upgrade: yes
 
 - name: installing containerd
   apt:
@@ -96,4 +88,4 @@
 - name: starting service
   systemd:
     name: docker-container
-    state: started
+    state: restarted
